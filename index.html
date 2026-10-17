@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 причин, почему я тебя люблю ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff4d8d;
+    --purple: #9b30ff;
+    --deep: #4a0e4e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Comfortaa', cursive;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff2d75 0%, #c724b1 45%, #6a0dad 100%);
+    overflow-x: hidden;
+    padding: 20px;
+    color: #fff;
+  }
+
+  /* ---------- летающие сердечки ---------- */
+  .hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 24px;
+    opacity: .55;
+    animation: floatUp linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,.5));
+  }
+
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg) scale(.8); opacity: 0; }
+    10%  { opacity: .6; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+
+  /* ---------- карточка ---------- */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    background: rgba(255, 255, 255, .13);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 2px solid rgba(255, 255, 255, .35);
+    border-radius: 30px;
+    padding: 38px 30px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(60, 0, 60, .45),
+                inset 0 0 40px rgba(255, 255, 255, .08);
+    animation: pop .5s ease both;
+  }
+
+  @keyframes pop {
+    from { transform: scale(.9); opacity: 0; }
+    to   { transform: scale(1);  opacity: 1; }
+  }
+
+  h1 {
+    font-size: clamp(20px, 4.5vw, 28px);
+    line-height: 1.35;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 10px rgba(0,0,0,.3);
+  }
+
+  .sub {
+    font-size: 14px;
+    opacity: .85;
+    margin-bottom: 26px;
+  }
+
+  /* ---------- ввод цифры ---------- */
+  .input-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+
+  input[type="number"] {
+    width: 150px;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 22px;
+    text-align: center;
+    color: #fff;
+    background: rgba(255,255,255,.18);
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 18px;
+    outline: none;
+    transition: .25s;
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  input[type="number"]::placeholder { color: rgba(255,255,255,.6); }
+
+  input[type="number"]:focus {
+    background: rgba(255,255,255,.28);
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255, 120, 200, .8);
+    transform: translateY(-2px);
+  }
+
+  button {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 28px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    border: 2px solid rgba(255,255,255,.55);
+    border-radius: 18px;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 8px 20px rgba(80, 0, 80, .5);
+  }
+
+  button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 12px 26px rgba(80, 0, 80, .6);
+    filter: brightness(1.12);
+  }
+
+  button:active { transform: scale(.97); }
+
+  /* ---------- результат ---------- */
+  .result {
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255,45,117,.35), rgba(106,13,173,.35));
+    border: 2px dashed rgba(255,255,255,.5);
+    border-radius: 22px;
+    padding: 22px 18px;
+    transition: .3s;
+  }
+
+  .result .num {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffd6ec;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .result .text {
+    font-size: clamp(19px, 4vw, 25px);
+    font-weight: 700;
+    line-height: 1.4;
+    text-shadow: 0 2px 12px rgba(0,0,0,.35);
+    animation: showUp .45s ease both;
+  }
+
+  .result .hint {
+    font-size: 15px;
+    opacity: .8;
+    font-style: italic;
+  }
+
+  @keyframes showUp {
+    from { transform: translateY(14px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  /* сердечки по бокам результата */
+  .result .text::before { content: "❤ "; animation: beat 1s infinite; display: inline-block; }
+  .result .text::after  { content: " ❤"; animation: beat 1s infinite .2s; display: inline-block; }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    25%      { transform: scale(1.35); }
+    40%      { transform: scale(1); }
+  }
+
+  .error {
+    color: #ffe0ef;
+    font-size: 14px;
+    margin-top: 12px;
+    min-height: 18px;
+    text-shadow: 0 1px 6px rgba(0,0,0,.4);
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 22px;
+    font-size: 13px;
+    opacity: .8;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="card">
+  <h1>💖 100 причин, почему я тебя люблю 💖</h1>
+  <p class="sub">Введи цифру от 1 до 100 и узнай свою причину 🥰</p>
+
+  <div class="input-row">
+    <input type="number" id="num" min="1" max="100" placeholder="1–100" autocomplete="off">
+    <button id="go">Показать ❤️</button>
+  </div>
+
+  <div class="result" id="result">
+    <span class="hint">Здесь появится твоя причина ✨</span>
+  </div>
+
+  <div class="error" id="error"></div>
+</div>
+
+<footer>сделано с любовью для тебя 💗💗💗</footer>
+
+<script>
+  const REASONS = [
+    "Твои глаза",
+    "Твоя улыбка",
+    "Твой характер",
+    "Твоя личность",
+    "Твой носик",
+    "Твои руки",
+    "Ты смелая",
+    "Всегда поддерживаешь",
+    "С тобой интересно",
+    "С тобой я не чувствую себя одинокой",
+    "Ты слушаешь меня",
+    "Понимаешь меня",
+    "От тебя приятно пахнет",
+    "Ты мило спишь",
+    "Я люблю твои волосы",
+    "Ты даёшь чувствовать себя любимой",
+    "Ты нежная",
+    "Ты внимательная",
+    "Ты самая умная",
+    "Тебе легко со всеми общаться",
+    "Ты милая",
+    "Я готова слушать тебя вечно",
+    "Люблю твой голос",
+    "Мне нравится наблюдать, как ты играешь",
+    "Мне нравится смотреть с тобой фильмы",
+    "Хочу обнимать тебя вечно",
+    "Люблю твои черты лица",
+    "Ты не способна никого обидеть",
+    "Ты всегда заботишься обо мне",
+    "Мне с тобой комфортно",
+    "Ты талантливая",
+    "Ты особенная",
+    "Ты трудолюбивая",
+    "Мне нравится твой стиль",
+    "Ты мило злишься",
+    "Ты всегда стараешься всем сделать как можно лучше",
+    "Я всегда хочу быть с тобой рядом",
+    "Ты замечаешь все детали",
+    "Ты нравишься моей семье",
+    "Ты удивительная",
+    "Ты не ревнуешь",
+    "Ты верная",
+    "Ты мне доверяешь",
+    "Хочу рассказывать тебе обо всём на свете",
+    "Ты заставляешь меня радоваться",
+    "Ты сильная",
+    "Ты всё время говоришь, какая я красивая",
+    "Ты идеальна",
+    "Ты рассудительная",
+    "Ты аккуратная",
+    "Мне нравится, что ты всегда стараешься",
+    "Ты меня успокаиваешь, когда я плачу",
+    "Я люблю твой смех",
+    "Ты мило смущаешься",
+    "Я не хочу чтобы ты плакал",
+    "Ты защищаешь меня",
+    "Ты всегда на моей стороне",
+    "Мне нравится твой круг общения",
+    "Ради тебя, я готова пойти на всё",
+    "Мне нравится, что ты со мной осторожен",
+    "Я люблю милые видео, которые ты мне присылаешь",
+    "Мне нравится с тобой гулять ночью",
+    "Я люблю с тобой смотреть на луну",
+    "Я горжусь тобой",
+    "Хочу с тобой путешествовать",
+    "Ты всегда готова помочь мне",
+    "Мне нравится твоя упёртость",
+    "Ты всегда относишься хорошо к другим, даже если они этого не заслуживают",
+    "Ты самая ласковая",
+    "Мне нравится твой вкус в музыке",
+    "Ты всегда выглядишь шикарно",
+    "Мне нравится твоё сонное лицо",
+    "Ты мило целуешься",
+    "Ты всегда найдёшь решение проблемы",
+    "Ты всегда помогаешь другим",
+    "Ты мне дорога",
+    "Ради меня, ты готова меняться в лучшую сторону",
+    "Ты всегда говоришь, что любишь меня",
+    "Ты терпишь мой характер",
+    "Ты всегда стараешься обсудить проблемы, а не ссориться",
+    "Ты любишь меня кусать",
+    "Ты осознаешь ошибки и пытаешься исправить их",
+    "Ты всегда прощаешь меня",
+    "Я люблю тебя, потому что ты поднимаешь мне настроение",
+    "Ты никогда не желал мне зла",
+    "Ты никогда не оскорблял меня",
+    "Я люблю твои шутки",
+    "Ты от меня ничего не скрываешь",
+    "Ты знаешь мой пароль от телефона",
+    "Ты фотографируешь меня, когда я этого не вижу",
+    "Я хочу тобой любоваться вечно",
+    "Ты помогаешь мне с выбором",
+    "Мне нравятся твои милые фотографии",
+    "Ты всегда желаешь мне доброго утра",
+    "Ты понимаешь меня с полуслова",
+    "Мне нравится, что ты открыт передо мной",
+    "Даже уставшая, ты готова ехать ко мне, чтобы увидеться хотя бы на минуту",
+    "Ты всегда спрашиваешь моё мнение",
+    "Ты всегда звонишь мне",
+    "Я люблю тебя, потому что ты просто есть"
+  ];
+
+  const numInput = document.getElementById('num');
+  const goBtn    = document.getElementById('go');
+  const result   = document.getElementById('result');
+  const error    = document.getElementById('error');
+
+  function show() {
+    const raw = numInput.value.trim();
+    const n = Number(raw);
+
+    if (raw === '' || !Number.isInteger(n) || n < 1 || n > 100) {
+      error.textContent = '🥺 Введи целую цифру от 1 до 100';
+      result.innerHTML = '<span class="hint">Здесь появится твоя причина ✨</span>';
+      return;
+    }
+
+    error.textContent = '';
+    result.innerHTML =
+      '<span class="num">Причина № ' + n + ' из 100</span>' +
+      '<span class="text">' + REASONS[n - 1] + '</span>';
+    spawnHearts(12);
+  }
+
+  goBtn.addEventListener('click', show);
+  numInput.addEventListener('keydown', e => { if (e.key === 'Enter') show(); });
+  numInput.addEventListener('input', () => { error.textContent = ''; });
+
+  /* ---------- фоновые сердечки ---------- */
+  const heartsBox = document.getElementById('hearts');
+  const EMOJIS = ['❤️','💜','💖','💕','💗','🩷','💝','💘'];
+
+  function spawnHearts(count) {
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+      h.style.left = Math.random() * 100 + 'vw';
+      h.style.fontSize = (16 + Math.random() * 22) + 'px';
+      h.style.animationDuration = (5 + Math.random() * 6) + 's';
+      h.style.animationDelay = (Math.random() * 1.5) + 's';
+      heartsBox.appendChild(h);
+      setTimeout(() => h.remove(), 13000);
+    }
+  }
+
+  spawnHearts(18);
+  setInterval(() => spawnHearts(3), 2500);
+</script>
+</body>
+</html>
